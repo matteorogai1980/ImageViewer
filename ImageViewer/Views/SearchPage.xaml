@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:helpers="clr-namespace:ImageViewer.Helpers"
+             xmlns:viewmodels="clr-namespace:ImageViewer.ViewModels"
+             xmlns:lang="clr-namespace:ImageViewer.Localizations"
+             x:Class="ImageViewer.Views.SearchPage"
+             x:DataType="viewmodels:SearchViewModel"
+             Shell.TitleColor="{DynamicResource White}"
+             Shell.BackgroundColor="{DynamicResource Primary}">
+    <Shell.TitleView>
+        <Grid ColumnDefinitions="40,*,40">
+            <Label VerticalOptions="Center" HorizontalOptions="Center" Grid.Column="1" FontSize="26" TextColor="{DynamicResource White}" FontFamily="FrutigerBold" Text="{x:Static lang:AppLanguage.SearchPageTitle}"></Label>
+            <ImageButton Width="30" Height="30" Grid.Column="2" Command="{Binding ChangeThemeCommand}">
+                <ImageButton.Source>
+                    <FontImageSource Size="40" Color="{DynamicResource Secondary}" FontFamily="MaterialDesignIcons" Glyph="{x:Static helpers:MaterialDesignIcons.Brightness1}"/>
+                </ImageButton.Source>
+            </ImageButton>
+        </Grid>
+    </Shell.TitleView>
+    <Grid RowDefinitions="Auto,*" ColumnDefinitions="*,40" BackgroundColor="{AppThemeBinding Light=White, Dark=Black}">
+        <SearchBar Placeholder="Search"
+                   BackgroundColor="{DynamicResource Primary}"
+                   PlaceholderColor="{DynamicResource Black}"
+                   CancelButtonColor="{DynamicResource White}"
+                   FontFamily="Frutiger"
+                   FontSize="16"
+                   TextColor="{DynamicResource White}"
+                   HorizontalOptions="Fill"
+                   VerticalOptions="Center"
+                   Text="{Binding SearchText}"
+                   SearchCommand="{Binding SearchCommand}"/>
+        <HorizontalStackLayout Grid.Column="1" BackgroundColor="{DynamicResource Primary}">
+            <ImageButton IsVisible="{Binding IsNotBusy}" BackgroundColor="{DynamicResource Primary}" Command="{Binding SearchCommand}">
+                <ImageButton.Source>
+                    <FontImageSource Size="40" Color="{DynamicResource Secondary}" FontFamily="MaterialDesignIcons" Glyph="{x:Static helpers:MaterialDesignIcons.ArrowRight}"/>
+                </ImageButton.Source>
+            </ImageButton>
+            <ActivityIndicator IsRunning="true" WidthRequest="40" HeightRequest="40" Color="{DynamicResource Secondary}" IsVisible="{Binding IsBusy}"></ActivityIndicator>
+        </HorizontalStackLayout>
+        <CollectionView Margin="20,20,20,0" Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding Photos}" RemainingItemsThreshold="20" RemainingItemsThresholdReachedCommand="{Binding LoadMoreCommand}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout ItemSpacing="20" Orientation="Vertical"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="viewmodels:PhotoItemViewModel">
+                    <Border Padding="0"
+                            BackgroundColor="{AppThemeBinding Light={DynamicResource Primary}, Dark={DynamicResource Secondary}}"
+                            StrokeShape="RoundRectangle 10"
+                            StrokeThickness="0">
+                        <Grid RowDefinitions="110,30" ColumnDefinitions="150,*,50">
+                            <Image Grid.RowSpan="2" WidthRequest="150" Aspect="Fill" HeightRequest="150" Source="{Binding ImageUrl}"/>
+                            <Label TextColor="{DynamicResource White}" Margin="10,10,0,0" VerticalOptions="Start" VerticalTextAlignment="Start" FontSize="20" FontFamily="Frutiger" Padding="5" Grid.Column="1" Grid.Row="0" Text="{Binding Title}"/>
+                            <Label HorizontalOptions="End" TextColor="{DynamicResource Black}" Margin="10,0,0,20" Padding="5" FontSize="16" FontFamily="FrutigerBold"  Grid.Column="1" Grid.Row="1"  Text="{Binding Owner}"/>
+                            <Image Margin="0,0,-10,0" Width="50" Height="50" Grid.RowSpan="2" Grid.Column="2">
+                                <Image.Source>
+                                    <FontImageSource Size="50" Color="{AppThemeBinding Light={DynamicResource Secondary}, Dark={DynamicResource Primary}}" FontFamily="MaterialDesignIcons" Glyph="{x:Static helpers:MaterialDesignIcons.ChevronRight}"/>
+                                </Image.Source>
+                            </Image>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>
