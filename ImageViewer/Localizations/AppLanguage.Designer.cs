@@ -80,5 +80,11 @@ namespace ImageViewer.Localizations {
                 return ResourceManager.GetString("NoGalleries", resourceCulture);
             }
         }
+        
+        internal static string PhotoDetailsTitle {
+            get {
+                return ResourceManager.GetString("PhotoDetailsTitle", resourceCulture);
+            }
+        }
     }
 }

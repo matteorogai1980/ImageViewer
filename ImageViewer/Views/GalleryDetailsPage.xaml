@@ -5,13 +5,13 @@
              xmlns:helpers="clr-namespace:ImageViewer.Helpers"
              xmlns:viewmodels="clr-namespace:ImageViewer.ViewModels"
              xmlns:lang="clr-namespace:ImageViewer.Localizations"
-             x:Class="ImageViewer.Views.GalleriesPage"
-             x:DataType="viewmodels:GalleriesViewModel"
+             x:Class="ImageViewer.Views.GalleryDetailsPage"
+             x:DataType="viewmodels:GalleryDetailsViewModel"
              Shell.TitleColor="{DynamicResource White}"
              Shell.BackgroundColor="{DynamicResource Primary}">
     <Shell.TitleView>
         <Grid ColumnDefinitions="40,*,40">
-            <Label VerticalOptions="Center" HorizontalOptions="Center" Grid.Column="1" FontSize="26" TextColor="{DynamicResource White}" FontFamily="FrutigerBold" Text="{Binding UserName}"></Label>
+            <Label VerticalOptions="Center" HorizontalOptions="Center" Grid.Column="1" FontSize="26" TextColor="{DynamicResource White}" FontFamily="FrutigerBold" Text="{Binding Title}"></Label>
             <ImageButton Width="30" Height="30" Grid.Column="2" Command="{Binding ChangeThemeCommand}">
                 <ImageButton.Source>
                     <FontImageSource Size="40" Color="{DynamicResource Secondary}" FontFamily="MaterialDesignIcons" Glyph="{x:Static helpers:MaterialDesignIcons.Brightness1}"/>
@@ -19,13 +19,13 @@
             </ImageButton>
         </Grid>
     </Shell.TitleView>
-    <Grid RowDefinitions="*" ColumnDefinitions="*" BackgroundColor="{AppThemeBinding Light=White, Dark=Black}">
-        <CollectionView Margin="20,20,20,0" Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding Galleries}" RemainingItemsThreshold="20" RemainingItemsThresholdReachedCommand="{Binding LoadMoreCommand}">
+    <Grid RowDefinitions="Auto,*" ColumnDefinitions="*" BackgroundColor="{AppThemeBinding Light=White, Dark=Black}">
+        <CollectionView Margin="20,20,20,0" Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding Photos}" RemainingItemsThreshold="20" RemainingItemsThresholdReachedCommand="{Binding LoadMoreCommand}">
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout ItemSpacing="20" Orientation="Vertical"/>
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="viewmodels:GalleryItemViewModel">
+                <DataTemplate x:DataType="viewmodels:PhotoItemViewModel">
                     <Border Padding="0"
                             BackgroundColor="{AppThemeBinding Light={DynamicResource Primary}, Dark={DynamicResource Secondary}}"
                             StrokeShape="RoundRectangle 10"
@@ -41,13 +41,13 @@
                             </Image>
                         </Grid>
                         <Border.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:GalleriesViewModel}}, Path=GalleryTappedCommand}" CommandParameter="{Binding .}"></TapGestureRecognizer>
+                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:GalleryDetailsViewModel}}, Path=PhotoTappedCommand}" CommandParameter="{Binding .}"></TapGestureRecognizer>
                         </Border.GestureRecognizers>
                     </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-        <Grid BackgroundColor="Black" Opacity="0.7" Grid.ColumnSpan="2" Grid.RowSpan="2"
+        <Grid BackgroundColor="Black" Opacity="0.7" Grid.RowSpan="2"
               RowDefinitions="*" ColumnDefinitions="*" IsVisible="{Binding IsBusyDetails}"
               Grid.Column="0" Grid.Row="0">
             <ActivityIndicator 

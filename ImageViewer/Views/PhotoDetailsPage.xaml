@@ -12,7 +12,7 @@
              Shell.BackgroundColor="{DynamicResource Primary}">
     <Shell.TitleView>
         <Grid ColumnDefinitions="40,*,40">
-            <Label VerticalOptions="Center" HorizontalOptions="Center" Grid.Column="1" FontSize="26" TextColor="{DynamicResource White}" FontFamily="FrutigerBold" Text="{x:Static lang:AppLanguage.SearchPageTitle}"></Label>
+            <Label VerticalOptions="Center" HorizontalOptions="Center" Grid.Column="1" FontSize="26" TextColor="{DynamicResource White}" FontFamily="FrutigerBold" Text="{x:Static lang:AppLanguage.PhotoDetailsTitle}"></Label>
             <ImageButton Width="30" Height="30" Grid.Column="2" Command="{Binding ChangeThemeCommand}">
                 <ImageButton.Source>
                     <FontImageSource Size="40" Color="{DynamicResource Secondary}" FontFamily="MaterialDesignIcons" Glyph="{x:Static helpers:MaterialDesignIcons.Brightness1}"/>
@@ -28,10 +28,11 @@
                 <Image VerticalOptions="Start" Source="{Binding ImageUrl}"></Image>
             </Border>
         </components:PanContainer>
-        <Border Grid.Row="1" Padding="0" Margin="10"
+        <Border MaximumHeightRequest="400" Grid.Row="1" Padding="0" Margin="10"
                     BackgroundColor="{AppThemeBinding Light={DynamicResource Primary}, Dark={DynamicResource Secondary}}"
                     StrokeShape="RoundRectangle 10"
                     StrokeThickness="0">
+            <ScrollView>
                 <Grid RowDefinitions="Auto,Auto,Auto,Auto" ColumnDefinitions="*,*,*">
                     <Label TextColor="{DynamicResource White}" 
                            Margin="10,10,0,0" 
@@ -80,9 +81,11 @@
                             FontFamily="FrutigerBold"
                             FontSize="24"
                             Command="{Binding ShowGalleriesCommand}"
+                            IsVisible="{Binding ButtonGalleryVisible}"
                             Text="{x:Static lang:AppLanguage.GalleriesButton}">
                     </Button>
                 </Grid>
+            </ScrollView>
         </Border>
         <Grid BackgroundColor="Black" Opacity="0.7" Grid.RowSpan="2"
               RowDefinitions="*" ColumnDefinitions="*" IsVisible="{Binding IsBusy}"

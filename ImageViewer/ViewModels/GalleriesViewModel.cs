@@ -8,8 +8,10 @@ using ImageViewerDomain.Repositories;
 
 namespace ImageViewer.ViewModels;
 
-public partial class GalleriesViewModel(IPhotoRepository photoRepository, GalleryItemViewModelConverter converter) : BaseViewModel
+public partial class GalleriesViewModel(IPhotoRepository photoRepository, GalleryItemViewModelConverter galleryConverter, PhotoItemViewModelConverter photoConverter, PhotoDetailsViewModelConverter detailsConverter) : BaseViewModel
 {
+    public static int PAGE_SIZE = 50;
+
     public IPhoto PhotoItem { get; set; }
 
     [ObservableProperty]
@@ -28,25 +30,25 @@ public partial class GalleriesViewModel(IPhotoRepository photoRepository, Galler
     {
         Console.WriteLine("LoadMore");
         IsBusy = true;
-        var moreGalleries = await photoRepository.SearchGalleries(PhotoItem, pageIndex++);
+        var moreGalleries = await photoRepository.SearchGalleries(PhotoItem, pageIndex++,PAGE_SIZE);
         foreach (var gallery in moreGalleries)
         {
-            Galleries.Add(converter.toDTO(gallery));
+            Galleries.Add(galleryConverter.toDTO(gallery));
         }
         IsBusy = false;
     }
 
     [RelayCommand]
-    public async void Galleryapped(PhotoItemViewModel photo)
+    public async void GalleryTapped(GalleryItemViewModel gallery)
     {
-        /*if (photo.PhotoItem.Details is null)
-        {
-            IsBusyDetails = true;
-            var photoDetaile = await photoRepository.GetPhotoDetails(photo.PhotoItem);
-            photo.PhotoItem.Details = photoDetaile;
-            IsBusyDetails = false;
-        }
-        var detailsViewModel = detailsConverter.toDTO(photo.PhotoItem);
-        Shell.Current.Navigation.PushAsync(new PhotoDetailsPage(detailsViewModel));*/
+        IsBusy = true;
+        var photosOfGallery = await photoRepository.SearchPhotosOfGallery(gallery.GalleryItem, 1, PAGE_SIZE);
+        IsBusy = false;
+        var viewModel = new GalleryDetailsViewModel(photoRepository, photoConverter, detailsConverter){
+            Photos = new ObservableCollection<PhotoItemViewModel>(photoConverter.toDTOs(photosOfGallery)),
+            GalleryItem = gallery.GalleryItem,
+            Title = gallery.Title
+        };
+        await Shell.Current.Navigation.PushAsync(new GalleryDetailsPage(viewModel));
     }
 }

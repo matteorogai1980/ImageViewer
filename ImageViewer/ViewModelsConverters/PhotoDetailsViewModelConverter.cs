@@ -5,11 +5,11 @@ using ImageViewerDomain.Repositories;
 
 namespace ImageViewer.ViewModelsConverters;
 
-public class PhotoDetailsViewModelConverter(IPhotoRepository photoRepository, GalleryItemViewModelConverter converter) : AbstractResourceConverter<IPhoto, PhotoDetailsViewModel>
+public class PhotoDetailsViewModelConverter(IPhotoRepository photoRepository) : AbstractResourceConverter<IPhoto, PhotoDetailsViewModel>
 {
     public override PhotoDetailsViewModel toDTO(IPhoto entity)
     {
-        return new PhotoDetailsViewModel(photoRepository,converter)
+        return new PhotoDetailsViewModel(photoRepository,new GalleryItemViewModelConverter())
         {
             ImageUrl = entity.Details.PhotoUrl,
             Title = entity.Details.Title,
@@ -17,6 +17,7 @@ public class PhotoDetailsViewModelConverter(IPhotoRepository photoRepository, Ga
             UserName = entity.Details.Username,
             TakenDate = entity.Details.TakenDate,
             RealName = entity.Details.Realname,
+            HasGalleries = entity.Details.HasGalleries,
             PhotoItem = entity
         };
     }

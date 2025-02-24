@@ -189,7 +189,7 @@ public class FlickrApiServices(IApiHelper apiHelper, HttpClient httpClient, Flic
                         var responseSuccess = JsonSerializer.Deserialize<FlickrGalleriesResponseDTO>(json, options);
                         if (responseSuccess is { Status: "ok" })
                         {
-                            if (int.Parse(responseSuccess.Galleries.Page) <= responseSuccess.Galleries.Pages)
+                            if (responseSuccess.Galleries.Page <= responseSuccess.Galleries.Pages)
                             {
                                 //Se sto chiedendo entro il numero di pagine allora ritorno il risultato
                                 return new ResponseModel<List<IGallery>>()
@@ -259,7 +259,7 @@ public class FlickrApiServices(IApiHelper apiHelper, HttpClient httpClient, Flic
             PropertyNameCaseInsensitive = true
         };
 
-        var endpoint = apiHelper.BaseUrl + apiHelper.FlickrSearchPhotosEndpoint;
+        var endpoint = apiHelper.BaseUrl + apiHelper.FlickrGalleriesPhotosEndpoint;
         object[] myValues = { galleryId, itemsPerPage.ToString(), pageIndex.ToString() }; 
         endpoint = string.Format(endpoint, myValues); 
         var request = new HttpRequestMessage(HttpMethod.Get, endpoint);

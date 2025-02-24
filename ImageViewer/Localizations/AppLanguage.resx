@@ -36,4 +36,7 @@
     <data name="NoGalleries" xml:space="preserve">
         <value>User has no galleries</value>
     </data>
+    <data name="PhotoDetailsTitle" xml:space="preserve">
+        <value>Photo Details</value>
+    </data>
 </root>

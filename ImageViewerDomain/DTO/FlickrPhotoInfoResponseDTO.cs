@@ -20,11 +20,8 @@ namespace ImageViewerDomain.DTO;
 
     public class Dates
     {
-        public string posted { get; set; }
-        public string taken { get; set; }
-        public int takengranularity { get; set; }
-        public string takenunknown { get; set; }
-        public string lastupdate { get; set; }
+         public string taken { get; set; }
+         
     }
 
     public class Editability
@@ -79,7 +76,7 @@ namespace ImageViewerDomain.DTO;
         public Title title { get; set; }
         public Description description { get; set; }
         public Visibility visibility { get; set; }
-        public Dates dates { get; set; }
+        public Dates? dates { get; set; }
         public string views { get; set; }
         public Editability editability { get; set; }
         public Publiceditability publiceditability { get; set; }

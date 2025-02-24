@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using Commons.JsonConverters;
 
 namespace ImageViewerDomain.DTO;
 
@@ -16,7 +17,8 @@ public class Galleries
     public int PageCount { get; set; }
     [JsonPropertyName("user_id")]
     public string UserId { get; set; }
-    public string Page { get; set; }
+    [JsonConverter(typeof(IntConverter))]
+    public int Page { get; set; }
     public int Pages { get; set; }
     [JsonPropertyName("gallery")]
     public List<GalleryDTO> GalleryList { get; set; }

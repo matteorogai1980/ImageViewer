@@ -1,5 +1,6 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Commons.JsonConverters;
 
 namespace ImageViewerDomain.DTO;
 
@@ -18,9 +19,11 @@ public class PhotoDTO
 
 public class PhotosDTO
 {
+    [JsonConverter(typeof(IntConverter))]
     public int Page { get; set; }
     public int Pages { get; set; }
     [JsonPropertyName("perpage")]
+    [JsonConverter(typeof(IntConverter))]
     public int PageCount { get; set; }
     public int Total { get; set; }
     

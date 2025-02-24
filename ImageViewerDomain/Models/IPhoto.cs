@@ -11,7 +11,6 @@ public interface IPhoto : ICloneable
     public string? Title { get; set; }
     public string? Id { get; set; }
     public string? Secret { get; set; }
-
     public IPhotoDetails? Details { get; set; }
     public IGallery? Gallery { get; set; }
 }

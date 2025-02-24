@@ -25,16 +25,26 @@ public partial class PhotoDetailsViewModel(IPhotoRepository photoRepository, Gal
     string userName;
     [ObservableProperty]
     string realName;
-    
+    [ObservableProperty] 
+    bool hasGalleries;
+
+    public bool ButtonGalleryVisible
+    {
+        get
+        {
+            return HasGalleries && PhotoItem.Gallery == null;
+        }
+    }
+
     [RelayCommand]
     public async Task ShowGalleries()
     {
         IsBusy = true;
-        var galleries = await  photoRepository.SearchGalleries(PhotoItem, 1);
+        var galleries = await  photoRepository.SearchGalleries(PhotoItem, 1, 50);
         IsBusy = false;
         if (galleries.Count > 0)
         {   
-            var viewModel = new GalleriesViewModel(photoRepository, converter)
+            var viewModel = new GalleriesViewModel(photoRepository, new GalleryItemViewModelConverter(), new PhotoItemViewModelConverter(), new PhotoDetailsViewModelConverter(photoRepository))
             {
                 Galleries = new ObservableCollection<GalleryItemViewModel>(converter.toDTOs(galleries)),
                 PhotoItem = PhotoItem,

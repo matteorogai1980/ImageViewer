@@ -96,6 +96,10 @@
         <DependentUpon>GalleriesPage.xaml</DependentUpon>
         <SubType>Code</SubType>
       </Compile>
+      <Compile Update="Views\GalleryDetailsPage.xaml.cs">
+        <DependentUpon>GalleryDetailsPage.xaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>
@@ -108,6 +112,9 @@
         <SubType>Designer</SubType>
       </MauiXaml>
       <MauiXaml Update="Views\GalleriesPage.xaml">
+        <SubType>Designer</SubType>
+      </MauiXaml>
+      <MauiXaml Update="Views\GalleryDetailsPage.xaml">
         <SubType>Designer</SubType>
       </MauiXaml>
     </ItemGroup>
