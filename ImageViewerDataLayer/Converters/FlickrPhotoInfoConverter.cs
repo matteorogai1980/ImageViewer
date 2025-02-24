@@ -23,6 +23,8 @@ public class FlickrPhotoInfoConverter : AbstractResourceConverter<IPhotoDetails,
         clonedItem.Title = resource.title.Content;
         clonedItem.Description = resource.description.Content;
         clonedItem.TakenDate = resource.dates.taken;
+        clonedItem.Username = resource.owner.username;
+        clonedItem.Realname = resource.owner.realname;
         clonedItem.PhotoUrl = "https://live.staticflickr.com/" + resource.server + "/" + resource.id + "_" +
                               resource.secret + "_b.jpg";
         return clonedItem;

@@ -16,7 +16,7 @@ public class Galleries
     public int PageCount { get; set; }
     [JsonPropertyName("user_id")]
     public string UserId { get; set; }
-    public int Page { get; set; }
+    public string Page { get; set; }
     public int Pages { get; set; }
     [JsonPropertyName("gallery")]
     public List<GalleryDTO> GalleryList { get; set; }

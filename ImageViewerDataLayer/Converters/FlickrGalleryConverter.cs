@@ -1,5 +1,6 @@
 using Commons.Converters;
 using ImageViewerDomain.DTO;
+using ImageViewerDomain.Helpers;
 using ImageViewerDomain.Models;
 
 namespace ImageViewerDataLayer.Converters;
@@ -20,6 +21,7 @@ public class FlickrGalleryConverter : AbstractResourceConverter<IGallery, Galler
     public override IGallery toEntity(GalleryDTO resource)
     {
         IGallery clonedItem = (IGallery)item.Clone();
+        clonedItem.Provider = EnumeServiceProvider.FLICKR;
         clonedItem.GalleryId = resource.GalleryId;
         clonedItem.Title = resource.title.Content;
         clonedItem.Description = resource.description.Content;

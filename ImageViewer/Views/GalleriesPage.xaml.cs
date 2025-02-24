@@ -7,9 +7,9 @@ using ImageViewer.ViewModels;
 
 namespace ImageViewer.Views;
 
-public partial class SearchPage : ContentPage
+public partial class GalleriesPage : ContentPage
 {
-    public SearchPage(SearchViewModel model)
+    public GalleriesPage(GalleriesViewModel model)
     {
         InitializeComponent();
         BindingContext = model;

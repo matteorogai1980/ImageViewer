@@ -71,6 +71,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="Components\" />
       <Folder Include="Services\" />
     </ItemGroup>
 
@@ -91,6 +92,10 @@
         <DependentUpon>BlueStyle.xaml</DependentUpon>
         <SubType>Code</SubType>
       </Compile>
+      <Compile Update="Views\GalleriesPage.xaml.cs">
+        <DependentUpon>GalleriesPage.xaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>
@@ -100,6 +105,9 @@
 
     <ItemGroup>
       <MauiXaml Update="Themes\CommonStyle.xaml">
+        <SubType>Designer</SubType>
+      </MauiXaml>
+      <MauiXaml Update="Views\GalleriesPage.xaml">
         <SubType>Designer</SubType>
       </MauiXaml>
     </ItemGroup>

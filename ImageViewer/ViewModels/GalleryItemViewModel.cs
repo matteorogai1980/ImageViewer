@@ -3,9 +3,9 @@ using ImageViewerDomain.Models;
 
 namespace ImageViewer.ViewModels;
 
-public partial class PhotoItemViewModel : BaseViewModel
+public partial class GalleryItemViewModel : BaseViewModel
 {
-    public IPhoto PhotoItem { get; set; }
+    public IGallery GalleryItem { get; set; }
     
     [ObservableProperty]
     string imageUrl;

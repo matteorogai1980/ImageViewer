@@ -1,3 +1,6 @@
+using ImageViewer.Localizations;
+using ImageViewerDataLayer.Models;
+using ImageViewerDomain.Helpers;
 using ImageViewerDomain.Models;
 using ImageViewerDomain.Repositories;
 using ImageViewerDomain.Services;
@@ -14,24 +17,65 @@ public class PhotoRepository(IFlickrApiServices flickrApiServices) : IPhotoRepos
         {
             photos.AddRange(response.Payload);
         }
+        else
+        {
+            await Shell.Current.DisplayAlert(AppLanguage.AlertTitle, response.Metadata.ErrorMessage,AppLanguage.OkButton);
+        }
         //Here we can add more services to download images for example instagram or other api integration
         //TODO...
         
         return photos;
     }
 
-    public Task<List<IGallery>> SearchGalleries(IPhoto user, int page)
+    public async Task<List<IGallery>> SearchGalleries(IPhoto photo, int page)
     {
-        throw new NotImplementedException();
+        if (photo.Provider == EnumeServiceProvider.FLICKR)
+        {
+            var response = await flickrApiServices.SearchGalleriesByUsername(photo.Owner, page, 50);
+            if (response.Metadata.Result)
+            {
+                return response.Payload;
+            }
+            else
+            {
+                await Shell.Current.DisplayAlert(AppLanguage.AlertTitle, response.Metadata.ErrorMessage,AppLanguage.OkButton);
+            }
+        }
+        return [];
     }
 
-    public Task<List<IPhoto>> SearchPhotoOfGallery(IGallery gallery, int page)
+    public async Task<List<IPhoto>> SearchPhotoOfGallery(IGallery gallery, int page)
     {
-        throw new NotImplementedException();
+        if (gallery.Provider == EnumeServiceProvider.FLICKR)
+        {
+            var response = await flickrApiServices.SearchPhotosOfGallery(gallery.GalleryId, page, 50);
+            if (response.Metadata.Result)
+            {
+                return response.Payload;
+            }
+            else
+            {
+                await Shell.Current.DisplayAlert(AppLanguage.AlertTitle, response.Metadata.ErrorMessage,AppLanguage.OkButton);
+            }
+        }
+        return [];
     }
 
-    public Task<List<IPhoto>> GetPhotoDetails(IPhoto gallery, int page)
+    public async Task<IPhotoDetails> GetPhotoDetails(IPhoto photo)
     {
-        throw new NotImplementedException();
+        //Here we can check the provider and call the specific service
+        if (photo.Provider == EnumeServiceProvider.FLICKR)
+        {
+            var response = await flickrApiServices.GetPhotoInfo(photo.Id, photo.Secret);
+            if (response.Metadata.Result)
+            {
+                return response.Payload;
+            }
+            else
+            {
+                await Shell.Current.DisplayAlert(AppLanguage.AlertTitle, response.Metadata.ErrorMessage,AppLanguage.OkButton);
+            }
+        }
+        return new PhotoDetails();
     }
 }

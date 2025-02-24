@@ -5,13 +5,13 @@
              xmlns:helpers="clr-namespace:ImageViewer.Helpers"
              xmlns:viewmodels="clr-namespace:ImageViewer.ViewModels"
              xmlns:lang="clr-namespace:ImageViewer.Localizations"
-             x:Class="ImageViewer.Views.SearchPage"
-             x:DataType="viewmodels:SearchViewModel"
+             x:Class="ImageViewer.Views.GalleriesPage"
+             x:DataType="viewmodels:GalleriesViewModel"
              Shell.TitleColor="{DynamicResource White}"
              Shell.BackgroundColor="{DynamicResource Primary}">
     <Shell.TitleView>
         <Grid ColumnDefinitions="40,*,40">
-            <Label VerticalOptions="Center" HorizontalOptions="Center" Grid.Column="1" FontSize="26" TextColor="{DynamicResource White}" FontFamily="FrutigerBold" Text="{x:Static lang:AppLanguage.SearchPageTitle}"></Label>
+            <Label VerticalOptions="Center" HorizontalOptions="Center" Grid.Column="1" FontSize="26" TextColor="{DynamicResource White}" FontFamily="FrutigerBold" Text="{Binding UserName}"></Label>
             <ImageButton Width="30" Height="30" Grid.Column="2" Command="{Binding ChangeThemeCommand}">
                 <ImageButton.Source>
                     <FontImageSource Size="40" Color="{DynamicResource Secondary}" FontFamily="MaterialDesignIcons" Glyph="{x:Static helpers:MaterialDesignIcons.Brightness1}"/>
@@ -19,32 +19,13 @@
             </ImageButton>
         </Grid>
     </Shell.TitleView>
-    <Grid RowDefinitions="Auto,*" ColumnDefinitions="*,40" BackgroundColor="{AppThemeBinding Light=White, Dark=Black}">
-        <SearchBar Placeholder="Search"
-                   BackgroundColor="{DynamicResource Primary}"
-                   PlaceholderColor="{DynamicResource Black}"
-                   CancelButtonColor="{DynamicResource White}"
-                   FontFamily="Frutiger"
-                   FontSize="16"
-                   TextColor="{DynamicResource White}"
-                   HorizontalOptions="Fill"
-                   VerticalOptions="Center"
-                   Text="{Binding SearchText}"
-                   SearchCommand="{Binding SearchCommand}"/>
-        <HorizontalStackLayout Grid.Column="1" BackgroundColor="{DynamicResource Primary}">
-            <ImageButton IsVisible="{Binding IsNotBusy}" BackgroundColor="{DynamicResource Primary}" Command="{Binding SearchCommand}">
-                <ImageButton.Source>
-                    <FontImageSource Size="40" Color="{DynamicResource Secondary}" FontFamily="MaterialDesignIcons" Glyph="{x:Static helpers:MaterialDesignIcons.ArrowRight}"/>
-                </ImageButton.Source>
-            </ImageButton>
-            <ActivityIndicator IsRunning="true" WidthRequest="40" HeightRequest="40" Color="{DynamicResource Secondary}" IsVisible="{Binding IsBusy}"></ActivityIndicator>
-        </HorizontalStackLayout>
-        <CollectionView Margin="20,20,20,0" Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding Photos}" RemainingItemsThreshold="20" RemainingItemsThresholdReachedCommand="{Binding LoadMoreCommand}">
+    <Grid RowDefinitions="*" ColumnDefinitions="*" BackgroundColor="{AppThemeBinding Light=White, Dark=Black}">
+        <CollectionView Margin="20,20,20,0" Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding Galleries}" RemainingItemsThreshold="20" RemainingItemsThresholdReachedCommand="{Binding LoadMoreCommand}">
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout ItemSpacing="20" Orientation="Vertical"/>
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="viewmodels:PhotoItemViewModel">
+                <DataTemplate x:DataType="viewmodels:GalleryItemViewModel">
                     <Border Padding="0"
                             BackgroundColor="{AppThemeBinding Light={DynamicResource Primary}, Dark={DynamicResource Secondary}}"
                             StrokeShape="RoundRectangle 10"

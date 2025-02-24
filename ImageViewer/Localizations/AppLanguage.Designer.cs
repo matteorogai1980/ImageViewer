@@ -56,5 +56,29 @@ namespace ImageViewer.Localizations {
                 return ResourceManager.GetString("SearchPlaceholder", resourceCulture);
             }
         }
+        
+        internal static string AlertTitle {
+            get {
+                return ResourceManager.GetString("AlertTitle", resourceCulture);
+            }
+        }
+        
+        internal static string OkButton {
+            get {
+                return ResourceManager.GetString("OkButton", resourceCulture);
+            }
+        }
+        
+        internal static string GalleriesButton {
+            get {
+                return ResourceManager.GetString("GalleriesButton", resourceCulture);
+            }
+        }
+        
+        internal static string NoGalleries {
+            get {
+                return ResourceManager.GetString("NoGalleries", resourceCulture);
+            }
+        }
     }
 }

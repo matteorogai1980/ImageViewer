@@ -7,11 +7,11 @@ using ImageViewer.ViewModels;
 
 namespace ImageViewer.Views;
 
-public partial class SearchPage : ContentPage
+public partial class PhotoDetailsPage : ContentPage
 {
-    public SearchPage(SearchViewModel model)
+    public PhotoDetailsPage(PhotoDetailsViewModel viewModel)
     {
         InitializeComponent();
-        BindingContext = model;
+        BindingContext = viewModel;
     }
 }

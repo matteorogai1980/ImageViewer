@@ -13,6 +13,7 @@ public class PhotoItemViewModelConverter : AbstractResourceConverter<IPhoto, Pho
             ImageUrl = entity.ThumbUrl,
             Title = entity.Title,
             Owner = entity.Owner,
+            PhotoItem = entity
         };
     }
 

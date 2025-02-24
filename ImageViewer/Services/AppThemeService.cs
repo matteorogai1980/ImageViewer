@@ -36,10 +36,6 @@ public class AppThemeService : IAppThemeService
 		LoadTheme(theme);
 	}
 
-	public IDictionary<string, object> CurrentThemeDictionary()
-	{
-		return Application.Current.Resources.MergedDictionaries.ElementAt(1);
-	}
 	public void LoadTheme(string? theme)
 	{
 		if (string.IsNullOrEmpty(theme)) { return; }

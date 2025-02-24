@@ -87,7 +87,6 @@ namespace ImageViewerDomain.DTO;
         public Comments comments { get; set; }
         public Notes notes { get; set; }
         public People people { get; set; }
-        public Tags tags { get; set; }
         public Urls urls { get; set; }
         public string media { get; set; }
     }

@@ -8,7 +8,5 @@ public interface IAppThemeService
 
     public void WriteTheme(string appTheme);
 
-    public IDictionary<string,object> CurrentThemeDictionary();
-
     public void LoadTheme(string? theme);
 }

@@ -24,4 +24,16 @@
     <data name="SearchPlaceholder" xml:space="preserve">
         <value>Search</value>
     </data>
+    <data name="AlertTitle" xml:space="preserve">
+        <value>Warning</value>
+    </data>
+    <data name="OkButton" xml:space="preserve">
+        <value>OK</value>
+    </data>
+    <data name="GalleriesButton" xml:space="preserve">
+        <value>Show user's photo galleries</value>
+    </data>
+    <data name="NoGalleries" xml:space="preserve">
+        <value>User has no galleries</value>
+    </data>
 </root>

@@ -43,6 +43,8 @@ public static class MauiProgram
         builder.Services.AddScoped<FlickrPhotoInfoConverter>();
 
         builder.Services.AddScoped<PhotoItemViewModelConverter>();
+        builder.Services.AddScoped<PhotoDetailsViewModelConverter>();
+        builder.Services.AddScoped<GalleryItemViewModelConverter>();
 
         builder.Services.AddScoped<IPhoto, Photo>();
         builder.Services.AddScoped<IGallery, Gallery>();

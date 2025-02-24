@@ -7,8 +7,6 @@ namespace ImageViewer.ViewModels;
 
 public partial class BaseViewModel : ObservableObject
 {
-    [ObservableProperty]
-    Color changeThemeColor;
     
     [ObservableProperty]
     string busyMessage;
@@ -25,7 +23,5 @@ public partial class BaseViewModel : ObservableObject
         MyApplication.INSTANCE.ThemeService!.LoadTheme(MyApplication.INSTANCE.ThemeService!.ReadTheme() == Constants.BLUE
             ? Constants.PINK
             : Constants.BLUE);
-
-        ChangeThemeColor = (Color)MyApplication.INSTANCE.ThemeService.CurrentThemeDictionary()["Primary"];
     }
 }

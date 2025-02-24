@@ -17,4 +17,16 @@
     <data name="SearchPlaceholder" xml:space="preserve">
         <value>Cerca</value>
     </data>
+    <data name="AlertTitle" xml:space="preserve">
+        <value>Attenzione</value>
+    </data>
+    <data name="OkButton" xml:space="preserve">
+        <value>OK</value>
+    </data>
+    <data name="GalleriesButton" xml:space="preserve">
+        <value>Vedi gallerie foto utente</value>
+    </data>
+    <data name="NoGalleries" xml:space="preserve">
+        <value>L'utente non ha gallerie di immagini</value>
+    </data>
 </root>

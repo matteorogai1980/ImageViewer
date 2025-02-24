@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:helpers="clr-namespace:ImageViewer.Helpers"
+             xmlns:components="clr-namespace:ImageViewer.Components"
+             xmlns:viewmodels="clr-namespace:ImageViewer.ViewModels"
+             xmlns:lang="clr-namespace:ImageViewer.Localizations"
+             x:Class="ImageViewer.Views.PhotoDetailsPage"
+             x:DataType="viewmodels:PhotoDetailsViewModel"
+             Shell.TitleColor="{DynamicResource White}"
+             Shell.BackgroundColor="{DynamicResource Primary}">
+    <Shell.TitleView>
+        <Grid ColumnDefinitions="40,*,40">
+            <Label VerticalOptions="Center" HorizontalOptions="Center" Grid.Column="1" FontSize="26" TextColor="{DynamicResource White}" FontFamily="FrutigerBold" Text="{x:Static lang:AppLanguage.SearchPageTitle}"></Label>
+            <ImageButton Width="30" Height="30" Grid.Column="2" Command="{Binding ChangeThemeCommand}">
+                <ImageButton.Source>
+                    <FontImageSource Size="40" Color="{DynamicResource Secondary}" FontFamily="MaterialDesignIcons" Glyph="{x:Static helpers:MaterialDesignIcons.Brightness1}"/>
+                </ImageButton.Source>
+            </ImageButton>
+        </Grid>
+    </Shell.TitleView>
+    <Grid RowDefinitions="*,Auto" ColumnDefinitions="*" BackgroundColor="{AppThemeBinding Light=White, Dark=Black}">
+        <components:PanContainer Margin="10" Grid.Row="0" IsZoomEnabled="True" IsPanEnabled="True">
+            <Border Padding="0" 
+                    StrokeShape="RoundRectangle 10"
+                    StrokeThickness="0">
+                <Image VerticalOptions="Start" Source="{Binding ImageUrl}"></Image>
+            </Border>
+        </components:PanContainer>
+        <Border Grid.Row="1" Padding="0" Margin="10"
+                    BackgroundColor="{AppThemeBinding Light={DynamicResource Primary}, Dark={DynamicResource Secondary}}"
+                    StrokeShape="RoundRectangle 10"
+                    StrokeThickness="0">
+                <Grid RowDefinitions="Auto,Auto,Auto,Auto" ColumnDefinitions="*,*,*">
+                    <Label TextColor="{DynamicResource White}" 
+                           Margin="10,10,0,0" 
+                           VerticalOptions="Start" 
+                           VerticalTextAlignment="Start" 
+                           FontSize="25" FontFamily="FrutigerBold" 
+                           Padding="5" 
+                           Grid.Column="0" Grid.Row="0" 
+                           Grid.ColumnSpan="3"
+                           Text="{Binding Title}"/>
+                    <Label TextColor="{DynamicResource White}" 
+                           Margin="10,10,10,0" 
+                           VerticalOptions="Start" 
+                           VerticalTextAlignment="Start" 
+                           FontSize="18" FontFamily="Frutiger" 
+                           Padding="5" 
+                           Grid.Column="0" Grid.Row="1" 
+                           Grid.ColumnSpan="3"
+                           Text="{Binding Description}"/>
+                    <Label Grid.Column="0" Grid.Row="2"
+                           TextColor="{DynamicResource Black}" 
+                           Margin="10,0,0,10" 
+                           Padding="5" 
+                           FontSize="16" 
+                           FontFamily="FrutigerBold" 
+                           Text="{Binding UserName}"/>
+                    <Label Grid.Column="1" Grid.Row="2"
+                           TextColor="{DynamicResource Black}" 
+                           Margin="0,0,0,10" 
+                           Padding="5" 
+                           HorizontalTextAlignment="Center"
+                           FontSize="16" 
+                           FontFamily="FrutigerBold" 
+                           Text="{Binding RealName}"/>
+                    <Label Grid.Column="2" Grid.Row="2"
+                           HorizontalTextAlignment="End"
+                           TextColor="{DynamicResource Black}" 
+                           Margin="10,0,10,10" 
+                           Padding="5" 
+                           FontSize="16" 
+                           FontFamily="FrutigerBold" 
+                           Text="{Binding TakenDate}"/>
+                    <Button Margin="10,0,10,10" 
+                            BackgroundColor="{DynamicResource Secondary}" 
+                            Grid.Row="3" Grid.ColumnSpan="3" 
+                            FontFamily="FrutigerBold"
+                            FontSize="24"
+                            Command="{Binding ShowGalleriesCommand}"
+                            Text="{x:Static lang:AppLanguage.GalleriesButton}">
+                    </Button>
+                </Grid>
+        </Border>
+        <Grid BackgroundColor="Black" Opacity="0.7" Grid.RowSpan="2"
+              RowDefinitions="*" ColumnDefinitions="*" IsVisible="{Binding IsBusy}"
+              Grid.Column="0" Grid.Row="0">
+            <ActivityIndicator 
+                Color="{DynamicResource Secondary}" 
+                HorizontalOptions="Center" 
+                Scale="2"
+                VerticalOptions="Center" IsRunning="True" 
+                WidthRequest="70" HeightRequest="70"/>
+        </Grid>
+    </Grid>
+</ContentPage>
